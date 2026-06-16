@@ -1,0 +1,72 @@
+Anlaşıldı, büyük README.md şablonları yerine doğrudan kendi notlarınızı yapılandırıp imla hatalarını düzelterek daha temiz ve düzenli bir Türkçe rehber haline getirdim. Dosya ismi olarak github-notlari.md veya git-github-rehberi.md kullanabilirsiniz.
+
+İşte metninizin düzenlenmiş hali:
+
+What is GitHub?
+GitHub, Git ile entegre çalışan bir uzak depo (remote repo) platformudur. Git'in kendisi değildir, onun bir parçası da değildir; ancak Git ile tam uyumlu çalışır.
+Benzer diğer uzak depo alternatifleri: GitLab ve Bitbucket.
+
+GitHub Projesi Oluşturma ve Yerel Depo ile Entegrasyon
+1. Token Oluşturma (GitHub Web Sayfası Üzerinden)
+GitHub sağ üst köşedeki profil menüsünden Settings seçeneğine gidin.
+
+Sol menünün en altından: Developer settings -> Personal access tokens -> Tokens (classic) -> Generate new token adımlarını takip edin.
+
+Token ismini (Note) my-course-token yapın.
+
+İlgili seçenekleri işaretleyin: repo, workflow, write:packages, delete:packages, gist.
+
+Generate token butonuna tıklayın. (Token'ı hemen kopyalayın, sayfayı kapattıktan sonra bir daha göremezsiniz).
+
+2. GitHub Reposu Oluşturma (GitHub Web Sayfası Üzerinden)
+Yeni bir repo oluşturun ve adını dataops koyun.
+
+Açıklama (Description) kısmına "For git lesson" yazın.
+
+Create repository butonuna tıklayın.
+
+Yerel Git ve GitHub Entegrasyonu
+mkdir dataops
+cd dataops/
+
+echo "# dataops" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/erkansirin78/git-atscale.git
+git push -u origin main
+
+Terminal sizden username istediğinde GitHub kullanıcı adınızı girin.
+
+password istendiğinde ise şifreniz yerine oluşturduğunuz token'ı yapıştırın.
+
+GitHub sayfasına gidip yenileyerek kontrol edin.
+
+Yöntem B: SSH Public Key (Açık Anahtar) ile Bağlantı
+Terminalinizde şu komutu çalıştırarak bir SSH anahtarı üretin:
+ssh-keygen
+Gelen uyarılarda her seferinde Enter tuşuna basarak ilerleyin.
+
+Oluşan yeni anahtarı kendi makinenize kopyalayın (Hadoop ve dağıtık sistemler bu yöntemi kullanır):
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+cat ~/.ssh/id_rsa.pub
+
+Terminalde listelenen public key (açık anahtar) içeriğini kopyalayın.
+
+GitHub Ayarlarına Ekleme:
+
+GitHub panelinizden Settings -> SSH and GPG keys -> New SSH key adımlarına gidin.
+
+Bir başlık (Name) girin ve kopyaladığınız public key'i ilgili alana yapıştırın.
+
+Yerel Depo ile Bağlama:
+
+GitHub'da yeni bir repo oluşturun.
+
+Bağlantı linkini kopyalarken HTTPS yerine SSH olan linki seçip kopyalayın.
+
+Yerel deponuzla entegre ederek push işlemlerinizi şifresiz gerçekleştirebilirsiniz.
+Yöntem A: Token ve HTTPS ile Bağlantı
+Yerel Git Reposu Oluşturma (Terminal Üzerinden):
+Yerel terminalinizi açın ve bu Git reposu için yeni bir klasör oluşturun:
